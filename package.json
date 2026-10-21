@@ -1,0 +1,26 @@
+{
+  "name": "poulstar-session11",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/start.mjs",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "server": "node server.mjs",
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.4"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

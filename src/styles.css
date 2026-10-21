@@ -1,0 +1,60 @@
+
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #eef5f6; color: #193744; font-family: Tahoma, Arial, sans-serif; line-height: 1.8; }
+    main { max-width: 680px; margin: 44px auto; padding: 0 20px; }
+    header { background: #143647; color: white; padding: 26px; border-radius: 18px; }
+    h1 { margin: 0 0 10px; font-size: 28px; }
+    header p { margin: 0; }
+    section { background: white; border-radius: 16px; padding: 24px; margin-top: 20px; }
+    h2 { margin: 0 0 12px; font-size: 20px; }
+    label { display: block; font-weight: bold; margin-bottom: 8px; }
+    input { width: 100%; padding: 12px; border: 1px solid #9dbfc2; border-radius: 10px; font: inherit; }
+    button { background: #146d70; color: white; border: 0; border-radius: 10px; padding: 10px 22px; margin-top: 14px; font: inherit; cursor: pointer; }
+    input:focus, button:focus { outline: 3px solid #dd9e57; outline-offset: 3px; }
+    .error { color: #a8272f; margin: 10px 0 0; min-height: 0; }
+    .empty { color: #667d85; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { padding: 12px; margin-top: 8px; background: #edf7f6; border-radius: 9px; overflow-wrap: anywhere; }
+    .note { font-size: 13px; color: #536b75; margin-top: 18px; }
+    @media (max-width: 600px) { main { margin: 20px auto; } h1 { font-size: 24px; } }
+  .request-title{display:block;font-weight:bold}
+    .status{display:inline-block;margin:10px 0 0 10px;padding:4px 10px;border-radius:20px;background:#ece2f5;color:#644588}
+    .toggle{margin-top:10px;padding:8px 14px}
+    li.done{background:#eaf4e8}
+    li.done .status{background:#d6e8d1;color:#28592d}
+    header{background:#745592}
+    body{background:#fffcf7}
+    .edit-button{background:#745592;margin:10px 8px 0 0;padding:8px 14px}
+    .edit-panel{margin-top:14px;padding-top:14px;border-top:1px solid #cbbcd9}
+    .edit-panel button{margin-left:8px}
+    .edit-panel button:last-child{background:#526878}
+    [hidden]{display:none!important}
+    .delete-button{background:#975b67;margin:10px 8px 0 0;padding:8px 14px}
+    .confirm-delete{background:#fff0dc;border-radius:10px;padding:12px;margin-top:12px}
+    .confirm-delete p{margin:0}
+    .confirm-delete button{margin-left:8px}
+    button:disabled{opacity:.5;cursor:default}
+    #undo-delete{background:#745592;margin:12px 0}
+    #delete-feedback{font-size:14px;color:#526878}
+    nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+    nav button{margin:0;background:#e9e0f2;color:#51356d;flex:1;min-width:140px}
+    nav button[aria-current="page"]{background:#51356d;color:white;border-bottom:4px solid #b9d9cb}
+    h2:focus{outline:3px solid #dd9e57;outline-offset:5px}
+    .summary-cards{display:flex;gap:12px;margin-top:16px}
+    .summary-cards div{flex:1;padding:16px;border-radius:12px;background:#eef5ef;color:#344056}
+    .summary-cards strong{display:block;font-size:28px;margin-top:8px}
+    .app-view>button{margin-left:8px}
+    #registered-message{color:#28592d;overflow-wrap:anywhere}
+    input[aria-invalid="true"]{border:2px solid #a8272f}
+    @media(max-width:450px){section{padding:18px}.summary-cards{gap:8px}.summary-cards div{padding:12px}button{max-width:100%;white-space:normal}nav button{min-width:100px}}
+    
+select{width:100%;padding:12px;border:1px solid #9dbfc2;border-radius:10px;font:inherit;background:white}.filter-label{margin-top:14px}select:focus{outline:3px solid #dd9e57;outline-offset:3px}
+
+fieldset{border:0;padding:0;margin:0;min-width:0}.connection:empty{display:none}.connection{background:#fff0dc;border-radius:12px;margin-top:16px;padding:12px}.connection p{margin:0 0 8px}.connection button{margin-top:4px}
+
+.ai-panel{padding:18px;border:1px solid #d8c8ea;background:#f6f1fa;border-radius:16px;margin:16px 0}.ai-panel h3{color:#644588}.ai-panel textarea{font:inherit;box-sizing:border-box;width:100%;min-height:95px;padding:10px;border-radius:8px;border:1px solid #827897}.ai-panel textarea:focus-visible{outline:3px solid #397369;outline-offset:3px}.ai-result{background:#edf7ee;padding:12px;border-radius:10px}
+
+/* Lesson 10: two small changes selected from observed usability issues. */
+.filter-summary{margin:14px 0;padding:12px;background:#f2edf8;border:1px solid #d8c8ea;border-radius:12px}
+.filter-summary p,#list-freshness{margin:6px 0;font-size:14px;color:#38575a}
+.filter-summary button{margin-top:4px}

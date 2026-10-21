@@ -1,0 +1,15 @@
+*
+!Dockerfile
+!package.json
+!package-lock.json
+!index.html
+!tsconfig.json
+!vite.config.ts
+!src/
+!src/**
+!server.mjs
+!ai.mjs
+!logger.mjs
+!scripts/
+!scripts/promote.mjs
+!scripts/backup.mjs
