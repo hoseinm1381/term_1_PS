@@ -12,7 +12,7 @@ import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=dirname(fileURLToPath(import.meta.url));
 const production=process.env.NODE_ENV==='production';
-import {configureProduction} from './production-config.mjs';
+import {configureProduction,allowedWriteOrigin} from './production-config.mjs';
 const publicOrigin=configureProduction(process.env);
 const dist=resolve(root,'dist');
 if(production&&!existsSync(resolve(dist,'index.html')))throw new Error('Build output missing');
@@ -40,8 +40,9 @@ function guard(req){
  if(req.headers['x-poulstar-action']!=='1')fail(403,'درخواست نوشتن معتبر نیست.');
  const allowed=['http://127.0.0.1:'+(process.env.WEB_PORT||5173),'http://localhost:'+(process.env.WEB_PORT||5173)];
  if(process.env.LAN_TEST_IP)allowed.push('http://'+process.env.LAN_TEST_IP+':'+(process.env.WEB_PORT||5173));
- if(production){allowed.length=0;allowed.push(publicOrigin)}
- if(req.headers.origin&&!allowed.includes(req.headers.origin))fail(403,'مبدأ درخواست مجاز نیست.');
+ if(production){
+  if(!allowedWriteOrigin(req.headers.origin,req.headers.host,publicOrigin))fail(403,'مبدأ درخواست مجاز نیست.');
+ }else if(req.headers.origin&&!allowed.includes(req.headers.origin))fail(403,'مبدأ درخواست مجاز نیست.');
 }
 const attempts=new Map();
 function rate(req){

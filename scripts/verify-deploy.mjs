@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {configureProduction as config} from '../production-config.mjs';
+import {configureProduction as config, allowedWriteOrigin} from '../production-config.mjs';
 import {spawn} from 'node:child_process';
 import {mkdtempSync,rmSync,existsSync} from 'node:fs';
 import {tmpdir} from 'node:os';
@@ -11,12 +11,19 @@ for(const key of ['PUBLIC_ORIGIN','APP_URL','COOLIFY_FQDN','COOLIFY_URL']){
  const env={NODE_ENV:'production',[key]:'https://class.example/'};
  check(config(env)==='https://class.example');check(env.DB_FILE==='/data/requests.sqlite'&&env.COOKIE_SECURE==='1');
 }
-for(const v of [undefined,'http://class.example','https://class.example/page','https://u:p@class.example','https://class.example/?x=1','bad']){
+for(const v of ['http://class.example','https://class.example/page','https://u:p@class.example','https://class.example/?x=1','bad']){
  assert.throws(()=>config({NODE_ENV:'production',PUBLIC_ORIGIN:v}));checks++;
 }
 assert.throws(()=>config({NODE_ENV:'production',PUBLIC_ORIGIN:'https://class.example',COOKIE_SECURE:'0'}));checks++;
 check(config({NODE_ENV:'production',APP_URL:'bad',COOLIFY_FQDN:'https://class.example,https://other.example'})==='https://class.example');
 check(config({})===undefined);
+check(config({NODE_ENV:'production'})===undefined);
+check(allowedWriteOrigin('https://class.example','class.example',undefined));
+check(!allowedWriteOrigin('https://evil.example','class.example',undefined));
+check(!allowedWriteOrigin('http://class.example','class.example',undefined));
+check(!allowedWriteOrigin(undefined,'class.example',undefined));
+check(!allowedWriteOrigin('https://class.example','evil.example',undefined));
+check(allowedWriteOrigin('https://class.example','anything.test','https://class.example'));
 const dir=mkdtempSync(join(tmpdir(),'poulstar-'));let child,logs='';
 const listener=net.createServer();listener.listen(0,'127.0.0.1');await once(listener,'listening');const port=listener.address().port;await new Promise(r=>listener.close(r));
 const origin='https://class.example';
