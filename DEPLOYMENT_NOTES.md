@@ -1,6 +1,6 @@
 # اصلاح V2
 
-ابتدا START_HERE_FA.md را بخوانید. برای رفع خطای فعلی، PUBLIC_ORIGIN را در Runtime تنظیم کنید؛ در نبود آن نسخه جدید از APP_URL یا COOLIFY_FQDN یا COOLIFY_URL معتبر HTTPS استفاده می‌کند. / پایانی پذیرفته می‌شود. آزمون‌های جدید در scripts/verify-deploy.mjs هستند.
+این پوشه مرجع پایان جلسه۱۲ است، بر پایه اصلاح اجرای جلسه۱۱ V2 ارسالی شما. ابتدا START_HERE_FA.md را بخوانید. موفقیت واقعی DockHosting هنوز تایید نشده و به نتیجه تست شما وابسته است. برای رفع خطای فعلی، PUBLIC_ORIGIN را در Runtime تنظیم کنید؛ در نبود آن نسخه جدید از APP_URL یا COOLIFY_FQDN یا COOLIFY_URL معتبر HTTPS استفاده می‌کند. / پایانی پذیرفته می‌شود. آزمون‌های جدید در scripts/verify-deploy.mjs هستند.
 
 # جلسه ۱۱ | انتشار همان محصول روی DockHosting
 
@@ -11,8 +11,8 @@
 - Node 24 لازم است؛ node:sqlite داخلی. Node22 نمونه میزبان کپی نشود. npm ci در build؛ npm start در runtime. Vite dev/preview یا Caddy سرور این محصول نیست.
 - یک instance و یک replica؛ SQLite مشترک چند replica استفاده نشود. Volume واقعی با دسترسی نوشتن کاربر node، mount روی /data. فقط DATA_DIR اثری در این برنامه ندارد؛ برنامه DB_FILE می‌خواند.
 - PORT: درگاه واقعی مورد انتظار پنل (پیش‌فرض Dockerfile برابر 3000)؛ health مسیر /api/health.
-- متغیرهای runtime: NODE_ENV=production، PUBLIC_ORIGIN=آدرس HTTPS دقیق بدون اسلش انتها، COOKIE_SECURE=1، DB_FILE=/data/requests.sqlite، LOG_FILE=/data/logs/events.jsonl، AI_MODEL=gpt-6-luna و GAPGPT_API_KEY=کلید شخصی در کادر Secret پنل. RELEASE_ID=شناسه نسخه کد.
-- فعال‌بودن AI نیازمند AI_MODE=live است؛ کلید تنها کافی نیست. تنظیم مرجع قبلی: AI_INPUT_USD_PER_MILLION=0.10، AI_OUTPUT_USD_PER_MILLION=0.50، AI_DAILY_BUDGET_USD=0.05، AI_USER_DAILY_LIMIT=10، AI_TOTAL_DAILY_LIMIT=50. نرخ‌ها پارامتر رزرو آموزشی قبلی‌اند، نه ادعای قیمت فعلی ارائه‌دهنده؛ هزینه واقعی طبق تعرفه سرویس است. AI_FIXTURE_SCENARIO در live لازم نیست.
+- متغیرهای runtime: NODE_ENV=production، PUBLIC_ORIGIN=آدرس HTTPS همین سرویس؛ فاصله و / پایانی استاندارد می‌شود، COOKIE_SECURE=1، DB_FILE=/data/requests.sqlite، LOG_FILE=/data/logs/events.jsonl، AI_MODEL=gpt-6-luna و GAPGPT_API_KEY=کلید شخصی در کادر Secret پنل. RELEASE_ID=شناسه نسخه کد.
+- فعال‌بودن AI نیازمند AI_MODE=live، مدل و کلید و نرخ‌های معتبر ارائه‌دهنده در AI_INPUT_USD_PER_MILLION و AI_OUTPUT_USD_PER_MILLION است؛ کلید تنها کافی نیست. نرخ‌های نمونه آموزشی قبلی را قیمت تاییدشده فعلی فرض نکنید؛ تنظیم runtime معتبر خودتان را حفظ/بررسی کنید. سقف مرجع قبلی: AI_DAILY_BUDGET_USD=0.05، AI_USER_DAILY_LIMIT=10 و AI_TOTAL_DAILY_LIMIT=50؛ بدون تصمیم روشن تغییر نکنند. AI_FIXTURE_SCENARIO در live لازم نیست.
 - سایر تنظیمات سقف/نرخ اختصاصی .env قبلی اگر وجود دارند، بدون چاپ مقدار محرمانه به runtime منتقل شوند؛ سقف و مدل خودسرانه عوض نشوند. هیچ کلیدی با VITE_ تعریف نشود. کلید در build لازم نیست.
 - .env خصوصی فقط در این ZIP مربی باقی است؛ وارد Git، context Docker یا تصویر نمی‌شود. .env.example فقط مدل و جای کلید دارد. اگر قبلاً secret در Git رفته، حذف فایل کافی نیست؛ کلید تعویض و تاریخچه بررسی شود.
 - دامنه اختصاصی لازم نیست؛ زیر‌دامنه HTTPS اختصاص‌یافته همین سرویس کافی است. PUBLIC_ORIGIN با تغییر دامنه باید دقیقاً اصلاح شود.
@@ -47,5 +47,13 @@
 خروجی نرم‌افزار محلی بررسی می‌شود؛ انتشار در حساب شما، دسترسی از ایران، دریافت AI واقعی، ماندگاری Volume و بازگشت روی DockHosting هنوز آزمون حضوری لازم دارند. جزئیات هاست از شرح ارائه‌شده شما و صفحه عمومی سرویس گرفته شده‌اند؛ دسترسی به پنل انجام نشده است.
 منابع: https://dockhosting.dev/ ، https://docs.docker.com/build/building/multi-stage/ ، https://vite.dev/guide/static-deploy.html
 
-## بررسی مرجع بسته
-Build و TypeScript پاس؛ ۴۸ بررسی رفتارهای قبلی و ۴۴ بررسی محلی production از جمله HTTPS آزمایشی، کوکی امن، مالکیت، جایگزینی پوشه اجرا با DB بیرونی و snapshot SQLite پاس شده‌اند. این‌ها آزمون Docker engine، Volume واقعی DockHosting، API پولی یا انسان واقعی نیستند. Docker در محیط تهیه بسته موجود نبود؛ ساخت image و آزمون‌های پنل در انتظار اجرای مربی‌اند.
+## پیکربندی اصلاح‌شده V2 و بررسی آمادگی
+- production-config.mjs باید در ریشه مخزن باشد؛ Dockerfile آن را COPY می‌کند و .dockerignore اجازه ورودش را می‌دهد. logger مسیر LOG_FILE را هنگام نوشتن، پس از پیکربندی می‌خواند.
+- اول PUBLIC_ORIGIN بررسی می‌شود؛ اگر خالی است، به‌ترتیب APP_URL، COOLIFY_FQDN و COOLIFY_URL برای اولین HTTPS معتبر بررسی می‌شوند. آدرس از Host درخواست گرفته نمی‌شود. PUBLIC_ORIGIN صریح نامعتبر، با fallback مخفی نمی‌شود؛ پیام خطا بدهید و تنظیم را درست کنید.
+- فاصله و / پایانی مجاز، مسیر صفحه، credentials، query و fragment نامجاز. در نبود HTTPS معتبر برنامه با پیام روشن متوقف می‌شود. تنظیم صریح PUBLIC_ORIGIN برای کلاس روشن‌تر است.
+- در production پیش‌فرض DB_FILE=/data/requests.sqlite، LOG_FILE=/data/logs/events.jsonl و COOKIE_SECURE=1 است؛ مقدار ناامن COOKIE_SECURE=0 رد می‌شود. پیش‌فرض مسیر، اثبات اتصال Volume نیست.
+- عامل ابتدا Build و سپس scripts/verify-deploy.mjs را در کپی آزمایشی بدون .env واقعی اجرا کند. این آزمون در حالت AI خاموش و DB موقت است؛ script داخل image نهایی کپی نشده و فرمان آن باید روی checkout توسعه اجرا شود، نه Console تصویر نهایی. تست‌های موجود و همین کد بررسی شوند، نه یک template جدا.
+- آزمون محلی و شواهد نسخه قبلی، تایید نهایی هاست/Volume/HTTPS عمومی یا AI واقعی نیستند. فایل ارسالی جلسه۱۱ و این بسته همچنان برای هاست در حال آزمون محسوب می‌شوند.
+- برای جایگزینی نسخه آنلاین فقط عامل روی مخزن همان هنرجو diff بدهد؛ پس از بررسی، فایل‌های سازگار تغییر کنند. .env، داده و Volume حذف/بازنویسی نشوند. ZIP آموزشی شامل PDF است و کل آن به‌عنوان ریشه پروژه هاست آپلود نشود؛ فقط کد محصول خودتان طبق راهنمای قبلی.
+## بررسی محلی این بسته جلسه۱۲ نسخه۲
+Build و TypeScript پاس؛ آزمون همراه اصلاح جلسه۱۱ با۳۳بررسی و۹۲بررسی دیگر (۴۸رفتار قبلی +۴۴اجرای production محلی) پاس شدند. جمع۱۲۵بررسی، با DB تمرینی جدا، بدون تماس پولی؛ تغییر پوشه برنامه با DB بیرونی، کوکی امن پشت HTTPS آزمایشی، مالکیت، شمار سهم غیرصفر و snapshot بررسی شدند. این نتایج، اجرای موفق Docker engine یا انتشار/Volume واقعی DockHosting را تایید نمی‌کنند. موتور Docker در محیط حاضر موجود نیست. برنامه در حساب شما هنوز در حال تست است؛ نتیجه عمومی/Volume/AI واقعی در انتظار مشاهده و ثبت شماست.
